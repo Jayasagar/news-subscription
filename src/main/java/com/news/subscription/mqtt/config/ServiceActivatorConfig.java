@@ -5,6 +5,7 @@ import com.news.subscription.mqtt.BridgeMqttClientFactory;
 import com.news.subscription.mqtt.convertor.JSONMqttMessageConvertor;
 import com.news.subscription.mqtt.model.NewsMessage;
 import com.news.subscription.service.NewsService;
+import com.news.subscription.service.PublishNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -25,6 +26,9 @@ public class ServiceActivatorConfig {
 
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private PublishNewsService publishNewsService;
 
     @Bean
     @ServiceActivator(inputChannel = "mqttExampleOutboundChannel")
@@ -51,7 +55,7 @@ public class ServiceActivatorConfig {
                 newsService.save(event);
 
                 // Action 2: publish message to UI subscription end points/ Web socket client
-
+                publishNewsService.news(event);
 
 
                 // Parse Topic and extract device id and event name

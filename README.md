@@ -6,25 +6,6 @@ simple application to receive news from subscribed channels
 * Used Spring data JPA to persist data
 * Used MQTT for external news publish/subscription
 * Used Web sockets to publish news to Web client
-* 
-
-### If I given time, I would design as following
-* News Stream Service
-** Pull users who is subscribed to incoming news channel/topic
-** Send the news to all the Users(Web socket)
-** Use **News Repository SDK** to persist news
-** Use **User Repository SDK** to pull users who are subscribed to channel/topic
-* News Persistent Service
-** Only responsibility is to persist the news using **News Repository SDK** 
-* User Repository SDK
-** user repo as sdk is responsible for User and User Subscription db operations
-* News Repository SDK
-** News repo as sdk is responsible for news db operations
-* News Web backend
-** Exposes REST apis
-* News Web client
-** Web client/ GUI for end users
-** This communicates with the **News Web backend**
 
 ### Execution flow
 * This single application is responsible for
@@ -42,14 +23,32 @@ simple application to receive news from subscribed channels
 * No User registration 
 * No security considerations
 
-### How to use application 
-* 
+### If time given, I would design as following
+* News Stream Service
+** Pull users who is subscribed to incoming news channel/topic
+** Send the news to all the Users(Web socket)
+** Use **News Repository SDK** to persist news
+** Use **User Repository SDK** to pull users who are subscribed to channel/topic
+* News Persistent Service
+** Only responsibility is to persist the news using **News Repository SDK** 
+* User Repository SDK
+** user repo as sdk is responsible for User and User Subscription db operations
+* News Repository SDK
+** News repo as sdk is responsible for news db operations
+* News Web backend
+** Exposes REST apis
+* News Web client
+** Web client/ GUI for end users
+** This communicates with the **News Web backend**
+
+### How to run application 
+*
 
 ### Question 1: How would you design such a system
 If I get a enough time, my design goes as follows
 Please section  **If I given time, I would design as following**
 
-### Question 2: JPA and DB: Given that the information is stored in an SQL database.
+### Question 2: JPA and DB: given that the information is stored in an SQL database.
 For database transactions there are different isolation levels? What is the reasoning behind it. Why would you choose one over the other. What would be a typical use case given the scenario above? 
 My understanding on isolation is : it is like handling concurrency at DB level. There are multiple levels, READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ
 In this current application scenario, once the news received by our application, to send to all appropriate users, 
